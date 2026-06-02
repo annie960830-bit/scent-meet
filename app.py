@@ -101,13 +101,13 @@ def result():
             sql_fallback += " AND 價格 > ?"
             fallback_params.append(5000)
 
-        sql_fallback += """
-        ORDER BY 持香度 DESC
-        LIMIT 6
-        """
+            sql_fallback += """
+            ORDER BY 持香度 DESC
+            LIMIT 6
+            """
 
-        cursor.execute(sql_fallback, fallback_params)
-        perfumes = [dict(row) for row in cursor.fetchall()]
+            cursor.execute(sql_fallback, fallback_params)
+            perfumes = [dict(row) for row in cursor.fetchall()]
 
     conn.close()
 
