@@ -1,0 +1,153 @@
+body{
+    margin:0;
+    overflow:hidden;
+}
+
+.quiz-page{
+    width:100vw;
+    height:100vh;
+
+    background-image:
+    linear-gradient(
+        rgba(0,0,0,.4),
+        rgba(0,0,0,.4)
+    ),
+    url("/static/images/gift.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    position:relative;
+
+    color:white;
+    text-align:center;
+}
+
+.logo{
+    position:absolute;
+    top:60px;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:30px;
+    letter-spacing:8px;
+}
+
+.step{
+    position:absolute;
+    top:180px;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:22px;
+}
+
+.question{
+    position:absolute;
+    top:220px;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:28px;
+}
+
+.choices{
+    position:absolute;
+    bottom:120px;
+    left:50%;
+    transform:translateX(-50%);
+
+    display:flex;
+    gap:20px;
+}
+
+.choice-btn{
+
+    width:120px;
+    height:50px;
+
+    background:transparent;
+
+    color:white;
+
+    border:1.5px solid white;
+    border-radius:8px;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+.choice-btn:hover{
+    background:rgba(255,255,255,.3);
+}
+
+.back-btn{
+
+    position:absolute;
+
+    left:35px;
+    bottom:30px;
+
+    width:120px;
+    height:45px;
+
+    background:transparent;
+    color:white;
+
+    border:1.5px solid white;
+    border-radius:8px;
+}
+.choice-btn.active {
+
+    background: rgba(255,255,255,0.35);
+
+    color: white;
+
+    border: 2px solid white;
+
+    box-shadow: 0 0 12px rgba(255,255,255,0.4);
+
+}
+#fadeScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: black;
+
+    opacity: 0;
+    pointer-events: none;
+
+    z-index: 9999;
+
+    transition: opacity 0.35s ease-in-out;
+}
+
+/* 確認按鈕 */
+.next-btn{
+
+    position:absolute;
+
+    right:35px;
+    bottom:30px;
+
+    width:120px;
+    height:45px;
+
+    background:transparent;
+    color:white;
+
+    border:1.5px solid white;
+    border-radius:8px;
+
+    cursor:pointer;
+}
+
+/* 黑幕顯示 */
+#fadeScreen.show{
+    opacity:1;
+}

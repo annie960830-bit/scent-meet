@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>香遇｜香氛探索館</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Microsoft JhengHei";
+}
+
+/* 背景 */
+
+.hero{
+
+    height:100vh;
+
+    background:
+    linear-gradient(
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.45)
+    ),
+    url("/static/images/home-bg.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* 中央內容 */
+
+.content{
+
+    text-align:center;
+    color:white;
+}
+
+.en-title{
+
+    font-size:72px;
+    letter-spacing:8px;
+    font-family:Georgia;
+}
+
+.zh-title{
+
+    font-size:38px;
+    margin-top:10px;
+    margin-bottom:30px;
+}
+
+.subtitle{
+
+    font-size:22px;
+    letter-spacing:2px;
+    margin-bottom:15px;
+}
+
+.desc{
+
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:50px;
+}
+
+/* 按鈕 */
+
+.btn{
+
+    display:block;
+
+    width:300px;
+
+    margin:20px auto;
+
+    padding:18px;
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:20px;
+
+    border-radius:12px;
+
+    border:1px solid rgba(255,255,255,0.3);
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(12px);
+
+    -webkit-backdrop-filter:blur(12px);
+
+    transition:0.3s;
+}
+.btn:hover{
+
+    background:rgba(255,255,255,0.22);
+
+    transform:translateY(-3px);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+
+    <div class="content">
+
+        <div class="en-title">
+            SCENT MEET
+        </div>
+
+        <div class="zh-title">
+            香遇
+        </div>
+
+        <div class="subtitle">
+            Find Your Signature Scent
+        </div>
+
+        <div class="desc">
+            探索專屬於你的香氣故事
+            <br>
+            找到最適合自己的香水
+        </div>
+
+        <a href="/quiz/1" class="btn">
+            開始香氛諮詢
+        </a>
+
+        <a href="/perfumes" class="btn">
+            自行探索香水
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

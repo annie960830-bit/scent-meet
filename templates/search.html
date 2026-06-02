@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>搜尋香水</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="topbar">
+    <div class="left">
+        <a href="/perfumes" class="back">←</a>
+    </div>
+
+    <div class="logo">
+        <div class="logo-en">SCENT MEET</div>
+    </div>
+
+    <div class="right-icons"></div>
+</div>
+
+<form action="/search" method="get" class="search-box" style="display:block;">
+    <input
+        type="text"
+        name="keyword"
+        placeholder="搜尋品牌、香調、場合..."
+        value="{{ keyword }}">
+</form>
+
+<div class="container">
+
+    {% if keyword and perfumes %}
+
+        {% for perfume in perfumes %}
+        <div class="card">
+            <a href="/perfume/{{ perfume['id'] }}">
+
+                <div class="image-box">
+                    <img src="{{ url_for('static', filename='images/' + perfume['圖片']) }}">
+                </div>
+
+                <div class="brand">
+                    {{ perfume['品牌'] }}
+                </div>
+
+                <div class="line"></div>
+
+                <div class="name">
+                    {{ perfume['香水名稱'] }}
+                </div>
+
+                <div class="card-bottom">
+                    <span>查看更多</span>
+                    <span>NT$ {{ perfume['價格'] }}</span>
+                </div>
+
+            </a>
+        </div>
+        {% endfor %}
+
+    {% elif keyword %}
+
+        <p class="empty">找不到符合「{{ keyword }}」的香水</p>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

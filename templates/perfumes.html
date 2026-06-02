@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>香水探索</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="menu" id="menu">
+    <div class="close" onclick="closeMenu()">×</div>
+
+    <h2>SCENT MEET</h2>
+    <p>香遇｜香氛探索館</p>
+
+    <a href="/">首頁</a>
+
+    <a href="/quiz/1">香氛諮詢</a>
+
+    <a href="/perfumes">香水探索</a>
+    <h3>香調</h3>
+    <a href="/perfumes?keyword=果香調">果香調</a>
+    <a href="/perfumes?keyword=花香調">花香調</a>
+    <a href="/perfumes?keyword=海洋調">海洋調</a>
+    <a href="/perfumes?keyword=木質調">木質調</a>
+    <a href="/perfumes?keyword=東方調">東方調</a>
+    <a href="/perfumes?keyword=麝香調">麝香調</a>
+    <a href="/perfumes?keyword=柑橘調">柑橘調</a>
+
+    <h3>場合</h3>
+    <a href="/perfumes?keyword=日常">日常</a>
+    <a href="/perfumes?keyword=約會">約會</a>
+    <a href="/perfumes?keyword=上班">上班</a>
+    <a href="/perfumes?keyword=正式場合">正式場合</a>
+</div>
+
+<div class="favorites-panel" id="favoritesPanel">
+
+    <div class="close" onclick="closeFavorites()">×</div>
+
+    <h2>我的收藏</h2>
+
+    <div id="favoritesList"></div>
+
+</div>
+
+<!-- 導覽列 -->
+
+<div class="topbar">
+
+    <div class="left">
+
+        <span class="icon menu-icon"
+        onclick="openMenu()">
+        ☰
+        </span>
+
+        <span class="icon search-icon"
+        onclick="toggleSearch()">
+        ⌕
+        </span>
+
+    </div>
+
+    <div class="logo">
+        <div class="logo-en">SCENT MEET</div>
+    </div>
+
+    <div class="right-icons">
+
+        <span class="icon favorite-icon" onclick="openFavorites()">♡</span>
+    </div>
+
+</div>
+
+<!-- 搜尋 -->
+
+<div class="search-box" id="searchBox">
+
+<form action="/search" method="get">
+
+    <input
+        type="text"
+        name="keyword"
+        placeholder="搜尋品牌、香調、場合">
+
+    
+
+</form>
+
+</div>
+
+<!-- 商品 -->
+
+<div class="container">
+
+{% for perfume in perfumes %}
+
+<div class="card">
+
+<button
+class="star"
+onclick="favorite(this)"
+data-brand="{{ perfume['品牌'] }}"
+data-name="{{ perfume['香水名稱'] }}"
+data-price="{{ perfume['價格'] }}"
+data-scent="{{ perfume['香調'] }}">
+☆
+</button>
+
+<a href="/perfume/{{ perfume['id'] }}">
+    
+<div class="image-box">
+
+{% if perfume['圖片'] %}
+<img src="{{ url_for('static',
+filename='images/' + perfume['圖片']) }}">
+{% endif %}
+
+</div>
+
+<div class="product-info">
+
+    <div class="brand">
+        {{ perfume['品牌'] }}
+    </div>
+
+    <div class="line"></div>
+
+    <div class="name">
+        {{ perfume['香水名稱'] }}
+    </div>
+
+</div>
+
+<div class="card-bottom">
+
+    <span>查看更多</span>
+
+    <span>NT$ {{ perfume['價格'] }}</span>
+
+</div>
+
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<script>
+
+function toggleSearch(){
+    let box = document.getElementById("searchBox");
+
+    if(box.style.display == "block"){
+        box.style.display = "none";
+    }else{
+        box.style.display = "block";
+    }
+}
+
+function openMenu(){
+    document.getElementById("menu").style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function closeMenu(){
+    document.getElementById("menu").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+function getFavorites(){
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+}
+
+function saveFavorites(favorites){
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function favorite(btn){
+    let brand = btn.dataset.brand;
+    let name = btn.dataset.name;
+    let price = btn.dataset.price;
+    let scent = btn.dataset.scent;
+
+    let favorites = getFavorites();
+
+    let exists = favorites.some(item =>
+        item.brand === brand && item.name === name
+    );
+
+    if(exists){
+        favorites = favorites.filter(item =>
+            !(item.brand === brand && item.name === name)
+        );
+
+        btn.innerHTML = "☆";
+    }else{
+        favorites.push({
+            brand: brand,
+            name: name,
+            price: price,
+            scent: scent
+        });
+
+        btn.innerHTML = "★";
+    }
+
+    saveFavorites(favorites);
+}
+
+function openFavorites(){
+    showFavorites();
+    document.getElementById("favoritesPanel").style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function closeFavorites(){
+    document.getElementById("favoritesPanel").style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+function showFavorites(){
+    let favorites = getFavorites();
+    let list = document.getElementById("favoritesList");
+
+    list.innerHTML = "";
+
+    if(favorites.length === 0){
+        list.innerHTML = "<p class='empty'>目前沒有收藏香水</p>";
+        return;
+    }
+
+    favorites.forEach(item => {
+        list.innerHTML += `
+            <div class="favorite-item">
+                <h3>${item.brand}</h3>
+                <p>${item.name}</p>
+                <p>香調：${item.scent}</p>
+                <p>NT$ ${item.price}</p>
+            </div>
+        `;
+    });
+}
+
+window.onload = function(){
+    let favorites = getFavorites();
+
+    document.querySelectorAll(".star").forEach(btn => {
+        let brand = btn.dataset.brand;
+        let name = btn.dataset.name;
+
+        let exists = favorites.some(item =>
+            item.brand === brand && item.name === name
+        );
+
+        if(exists){
+            btn.innerHTML = "★";
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>

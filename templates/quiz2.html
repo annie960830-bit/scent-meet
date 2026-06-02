@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>香氛諮詢 2</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='quiz2.css') }}">
+</head>
+
+<body>
+<div id="fadeScreen"></div>
+
+<div class="quiz-page">
+
+    <div class="logo">
+        SCENT MEET
+    </div>
+
+    <div class="step">
+        2 / 4
+    </div>
+
+    <div class="question">
+        您想尋找什麼場合使用的香水呢？
+    </div>
+
+    <form id="quizForm" action="/quiz/3" method="post">
+
+        <input type="hidden"
+               name="purpose"
+               value="{{ purpose }}">
+        <input type="hidden" id="occasionInput" name="occasion">
+
+        <div class="choices">
+<button class="choice-btn" type="button" onclick="changeBg('daily.jpg', this, '日常')">日常</button>
+<button class="choice-btn" type="button" onclick="changeBg('date.jpg', this, '約會')">約會</button>
+<button class="choice-btn" type="button" onclick="changeBg('office.jpg', this, '上班')">上班</button>
+<button class="choice-btn" type="button" onclick="changeBg('formal.jpg', this, '正式場合')">正式場合</button>
+
+            
+
+        </div>
+
+    </form>
+
+    <button
+        class="back-btn"
+        onclick="location.href='/quiz/1'">
+        上一步
+    </button>
+
+    <button
+    class="next-btn"
+    type="submit"
+    form="quizForm">
+    確認
+    </button>
+
+</div>
+
+
+<script>
+
+function changeBg(imageName, button, occasion){
+
+    document.getElementById("occasionInput").value = occasion;
+
+
+    const fade = document.getElementById("fadeScreen");
+    const page = document.querySelector(".quiz-page");
+
+    document.querySelectorAll(".choice-btn").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    fade.classList.add("show");
+
+    setTimeout(()=>{
+
+        page.style.backgroundImage =
+        "linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('/static/images/" + imageName + "')";
+        fade.classList.remove("show");
+
+    },180);
+
+}
+
+</script>
+
+
+</body>
+</html>

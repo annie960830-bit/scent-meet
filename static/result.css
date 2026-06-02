@@ -1,0 +1,99 @@
+body{
+    margin:0;
+    background:#17130f;
+    color:white;
+    font-family:"Microsoft JhengHei";
+}
+
+.result-page{
+    min-height:100vh;
+    padding:55px 60px;
+    text-align:center;
+    box-sizing:border-box;
+}
+
+.logo{
+    font-family:"Times New Roman", serif;
+    font-size:32px;
+    letter-spacing:8px;
+    margin-bottom:45px;
+}
+
+h1{
+    font-size:34px;
+    font-weight:500;
+    margin-bottom:15px;
+}
+
+.filter{
+    font-size:18px;
+    color:#d8c8b8;
+    margin-bottom:45px;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:35px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:16px;
+    padding:28px 22px;
+    backdrop-filter:blur(8px);
+}
+
+.card img{
+    width:180px;
+    height:230px;
+    object-fit:contain;
+    margin-bottom:20px;
+}
+
+.brand{
+    font-size:22px;
+    letter-spacing:3px;
+    font-weight:bold;
+}
+
+.line{
+    width:70%;
+    height:1px;
+    background:rgba(255,255,255,0.5);
+    margin:16px auto;
+}
+
+.name{
+    font-size:21px;
+    margin-bottom:18px;
+}
+
+.info{
+    color:#e7ded4;
+    font-size:16px;
+    line-height:1.5;
+}
+
+.info p{
+    margin:7px 0;
+}
+
+.empty{
+    grid-column:1 / -1;
+    font-size:22px;
+    color:#ddd;
+}
+
+.again-btn{
+    display:inline-block;
+    margin-top:45px;
+    width:180px;
+    padding:14px 0;
+    border:1.5px solid white;
+    border-radius:8px;
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+}

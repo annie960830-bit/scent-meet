@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>香氛諮詢 3</title>
+
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='quiz3.css') }}">
+</head>
+
+<body>
+<div id="fadeScreen"></div>
+
+<div class="quiz-page">
+
+    <div class="logo">
+        SCENT MEET
+    </div>
+
+    <div class="step">
+    3 / 4
+    </div>
+
+    <div class="question">
+    請選擇最能觸動您感官的香調
+    </div>
+
+<form id="quizForm" action="/quiz/4" method="post">
+
+    <input type="hidden" name="purpose" value="{{ purpose }}">
+    <input type="hidden" name="occasion" value="{{ occasion }}">
+    <input type="hidden" id="scentInput" name="scent">
+
+<div class="choices">
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('fruity.jpg', this, '果香調')">
+        果香調
+    </button>
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('flower.jpg', this, '花香調')">
+        花香調
+    </button>
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('ocean.jpg', this, '海洋調')">
+        海洋調
+    </button>
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('woody.jpg', this, '木質調')">
+        木質調
+    </button>
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('oriental.jpg', this, '東方調')">
+        東方調
+    </button>
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('musk.jpg', this, '麝香調')">
+        麝香調
+    </button>
+
+    <button
+        class="choice-btn"
+        type="button"
+        onclick="changeBg('citrus.jpg', this, '柑橘調')">
+        柑橘調
+    </button>
+
+</div>
+
+</form>
+
+    <button
+        class="back-btn"
+        onclick="location.href='/quiz/2'">
+        上一步
+    </button>
+
+    <button
+    class="next-btn"
+    type="submit"
+    form="quizForm">
+    確認
+    </button>
+
+</div>
+
+
+<script>
+
+function changeBg(imageName, button, scent){
+
+    document.getElementById("scentInput").value = scent;
+    const fade = document.getElementById("fadeScreen");
+    const page = document.querySelector(".quiz-page");
+
+    document.querySelectorAll(".choice-btn").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    fade.classList.add("show");
+
+    setTimeout(()=>{
+
+        page.style.backgroundImage =
+        "linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('/static/images/" + imageName + "')";
+        fade.classList.remove("show");
+
+    },180);
+
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{ perfume['香水名稱'] }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="detail-page">
+
+    <a href="/perfumes" class="back">← 返回</a>
+
+    <div class="detail-image">
+
+        {% if perfume['圖片'] == perfume['圖片'] %}
+        <img src="{{ url_for('static', filename='images/' ~ perfume['圖片']) }}">
+        {% endif %}
+
+    </div>
+
+    <div class="detail-title">
+
+        <h1>{{ perfume['品牌'] }}</h1>
+
+        <div class="detail-line"></div>
+
+        <h2>{{ perfume['香水名稱'] }}</h2>
+
+    </div>
+
+    <div class="detail-info">
+
+        <h2>商品資訊</h2>
+
+        <p><strong>前調：</strong>{{ perfume['前調'] }}</p>
+        <p><strong>中調：</strong>{{ perfume['中調'] }}</p>
+        <p><strong>後調：</strong>{{ perfume['後調'] }}</p>
+        <p><strong>香調：</strong>{{ perfume['香調'] }}</p>
+        <p><strong>場合：</strong>{{ perfume['場合'] }}</p>
+        <p><strong>季節：</strong>{{ perfume['季節'] }}</p>
+        <p><strong>價格：</strong>NT$ {{ perfume['價格'] }}</p>
+        <p><strong>持香度：</strong>{{ perfume['持香度'] }}</p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>推薦結果</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='result.css') }}">
+</head>
+
+<body>
+
+<div class="result-page">
+
+    <div class="logo">
+        SCENT MEET
+    </div>
+
+    {% if exact_match %}
+
+        <h1>為您推薦的香水</h1>
+
+        <p class="filter">
+            場合：{{ occasion }}
+            ｜ 香調：{{ scent }}
+            ｜ 價格：{{ price_range }}
+        </p>
+
+    {% else %}
+
+        <h1>目前沒有完全符合條件的香水</h1>
+
+        <p class="filter">
+            您可能感興趣的香水：
+        </p>
+
+    {% endif %}
+
+    <div class="cards">
+
+        {% if perfumes %}
+
+            {% for perfume in perfumes %}
+
+            <div class="card">
+
+                <img
+                    src="{{ url_for('static',
+                    filename='images/' + perfume['圖片']) }}"
+                    alt="{{ perfume['香水名稱'] }}">
+
+                <div class="brand">
+                    {{ perfume['品牌'] }}
+                </div>
+
+                <div class="line"></div>
+
+                <div class="name">
+                    {{ perfume['香水名稱'] }}
+                </div>
+
+                <div class="info">
+
+                    <p>
+                        香調：
+                        {{ perfume['香調'] }}
+                    </p>
+
+                    <p>
+                        場合：
+                        {{ perfume['場合'] }}
+                    </p>
+
+                    <p>
+                        季節：
+                        {{ perfume['季節'] }}
+                    </p>
+
+                    <p>
+                        持香度：
+                        {{ perfume['持香度'] }}
+                    </p>
+
+                    <p>
+                        價格：
+                        NT$ {{ perfume['價格'] }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty">
+
+                目前資料庫中沒有符合條件的香水
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="bottom-area">
+
+        <a href="/quiz/1" class="again-btn">
+            重新測驗
+        </a>
+
+        <a href="/perfumes" class="again-btn">
+            瀏覽全部香水
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

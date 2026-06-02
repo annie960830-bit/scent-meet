@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>香氛諮詢 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quiz4.css') }}">
+</head>
+
+<body>
+<div id="fadeScreen"></div>
+
+<div class="quiz-page">
+
+    <div class="logo">SCENT MEET</div>
+
+    <div class="step">4 / 4</div>
+
+    <div class="question">您偏好的價格範圍是？</div>
+
+    <form id="quizForm" action="/result" method="post">
+
+        <input type="hidden" name="purpose" value="{{ purpose }}">
+        <input type="hidden" name="occasion" value="{{ occasion }}">
+        <input type="hidden" name="scent" value="{{ scent }}">
+        <input type="hidden" id="priceInput" name="price_range">
+
+        <div class="choices">
+            <button class="choice-btn" type="button" onclick="choosePrice(this, '5000以下')">5000以下</button>
+            <button class="choice-btn" type="button" onclick="choosePrice(this, '5000以上')">5000以上</button>
+            <button class="choice-btn" type="button" onclick="choosePrice(this, '不限')">不限</button>
+        </div>
+
+    </form>
+
+<button
+    class="back-btn"
+    type="button"
+    onclick="window.location.href='/quiz/3'">
+    上一步
+</button>
+
+    <button class="next-btn" type="submit" form="quizForm">確認</button>
+
+</div>
+
+<script>
+function choosePrice(button, price){
+
+    document.getElementById("priceInput").value = price;
+
+    document.querySelectorAll(".choice-btn").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+}
+</script>
+
+</body>
+</html>
