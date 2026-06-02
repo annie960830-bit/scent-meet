@@ -61,7 +61,6 @@ def result():
 
     exact_match = False
 
-    # 先找完全符合：場合 + 香調 + 價格
     sql_exact = """
     SELECT rowid AS id, *
     FROM perfumes
@@ -86,12 +85,11 @@ def result():
         exact_match = True
 
     else:
-
         sql_fallback = """
         SELECT rowid AS id, *
         FROM perfumes
         WHERE 香調 = ?
-         """
+        """
 
         fallback_params = [scent]
 
@@ -108,9 +106,8 @@ def result():
         LIMIT 6
         """
 
-    cursor.execute(sql_fallback, fallback_params)
-
-    perfumes = [dict(row) for row in cursor.fetchall()]
+        cursor.execute(sql_fallback, fallback_params)
+        perfumes = [dict(row) for row in cursor.fetchall()]
 
     conn.close()
 

@@ -5,6 +5,7 @@
     <link rel="stylesheet"
           href="{{ url_for('static', filename='quiz1.css') }}">
 </head>
+
 <body>
 
 <div id="fadeScreen"></div>
@@ -13,97 +14,84 @@
 
     <div class="logo">SCENT MEET</div>
 
-    <div class="step">1 / 5</div>
+    <div class="step">1 / 4</div>
 
     <div class="question">您想為誰尋找香水呢？</div>
 
-    <div class="choices">
-    <button class="choice-btn" type="button" onclick="chooseOption('self.jpg', this)">自用</button>
-    <button class="choice-btn" type="button" onclick="chooseOption('gift.jpg', this)">送禮</button>
+    <form id="quizForm" action="/quiz/2" method="post">
+
+        <input type="hidden" id="purposeInput" name="purpose">
+
+        <div class="choices">
+            <button
+                class="choice-btn"
+                type="button"
+                onclick="chooseOption('self.jpg', this, '自用')">
+                自用
+            </button>
+
+            <button
+                class="choice-btn"
+                type="button"
+                onclick="chooseOption('gift.jpg', this, '送禮')">
+                送禮
+            </button>
+        </div>
+
+    </form>
+
+    <button
+        class="back-btn"
+        type="button"
+        onclick="history.back()">
+        上一步
+    </button>
+
+    <button
+        class="next-btn"
+        type="button"
+        onclick="goNext()">
+        確認
+    </button>
+
 </div>
 
-    <button class="back-btn" type="button" onclick="history.back()">上一步</button>
-    <button class="next-btn" type="button" onclick="location.href='/quiz/2'">確認</button>
-
-
 <script>
+function chooseOption(imageName, button, purpose){
 
-let selectedAnswer = "";
+    document.getElementById("purposeInput").value = purpose;
 
-function chooseOption(answer,imageName,btn){
-
-    selectedAnswer = answer;
-
-    document
-    .querySelectorAll(".choice-btn")
-    .forEach(button=>{
-        button.classList.remove("active");
+    document.querySelectorAll(".choice-btn").forEach(btn=>{
+        btn.classList.remove("active");
     });
 
-    btn.classList.add("active");
+    button.classList.add("active");
 
-    const fade =
-    document.getElementById("fadeScreen");
-
-    const page =
-    document.querySelector(".quiz-page");
+    const fade = document.getElementById("fadeScreen");
+    const page = document.querySelector(".quiz-page");
 
     fade.classList.add("show");
 
     setTimeout(()=>{
 
         page.style.backgroundImage =
-        `linear-gradient(
-        rgba(0,0,0,.25),
-        rgba(0,0,0,.25)),
-        url('/static/images/${imageName}')`;
+        "linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)), url('/static/images/" + imageName + "')";
 
         fade.classList.remove("show");
 
-    },250);
+    },180);
 }
 
-function goNext(nextUrl){
+function goNext(){
 
-    if(selectedAnswer==""){
+    const purpose = document.getElementById("purposeInput").value;
 
+    if(purpose === ""){
         alert("請先選擇一個選項");
-
         return;
     }
 
-    const fade =
-    document.getElementById("fadeScreen");
-
-    fade.classList.add("show");
-
-    setTimeout(()=>{
-
-        window.location.href = nextUrl;
-
-    },900);
-}
-
-</script>
-<script>
-    function chooseOption(button) {
-        document.querySelectorAll(".choice-btn").forEach(function(btn) {
-            btn.classList.remove("active");
-        });
-
-        button.classList.add("active");
-    }
-</script>
-<script>
-function chooseOption(imageName, button) {
-    document.querySelector(".quiz-page").style.backgroundImage =
-        "linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.25)), url('/static/images/" + imageName + "')";
-
-    document.querySelectorAll(".choice-btn").forEach(function(btn) {
-        btn.classList.remove("active");
-    });
-
-    button.classList.add("active");
+    document.getElementById("quizForm").submit();
 }
 </script>
 
